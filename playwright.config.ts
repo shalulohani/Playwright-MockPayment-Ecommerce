@@ -4,17 +4,17 @@ export default defineConfig({
   testDir: './tests',
 
   use: {
-    headless: true,            // ✅ Required for GitHub Actions (no X server)
+    headless: true,
     viewport: { width: 1280, height: 720 },
-    ignoreHTTPSErrors: true,
     screenshot: 'only-on-failure',
     video: 'retain-on-failure',
   },
 
   reporter: [
-    ['html', { open: 'never' }]   // ✅ Generates HTML report for CI
+    ['html', { open: 'never' }],
+    ['allure-playwright'],   // ⭐ Allure enabled
   ],
 
   retries: 0,
-  workers: 1,                     // Stable for CI
+  workers: 1,
 });
