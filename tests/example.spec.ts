@@ -1,6 +1,9 @@
-import { test, expect } from '@playwright/test';
+import { test, expect, chromium } from '@playwright/test';
 
-test('basic test', async ({ page }) => {
-  await page.goto('https://playwright.dev/');
-  await expect(page).toHaveTitle(/Playwright/);
+test('basic test', async () => {
+  const browser = await chromium.launch({ headless: true }); // ✅ run headless
+  const page = await browser.newPage();
+  await page.goto('https://example.com');
+  await expect(page).toHaveTitle(/Example Domain/);
+  await browser.close();
 });

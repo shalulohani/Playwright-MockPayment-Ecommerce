@@ -2,15 +2,19 @@ import { defineConfig } from '@playwright/test';
 
 export default defineConfig({
   testDir: './tests',
-  timeout: 30 * 1000,
-  expect: {
-    timeout: 5000
-  },
+
   use: {
-    headless: false,
+    headless: true,            // ✅ Required for GitHub Actions (no X server)
     viewport: { width: 1280, height: 720 },
-    actionTimeout: 0,
     ignoreHTTPSErrors: true,
-    video: 'retain-on-failure'
+    screenshot: 'only-on-failure',
+    video: 'retain-on-failure',
   },
+
+  reporter: [
+    ['html', { open: 'never' }]   // ✅ Generates HTML report for CI
+  ],
+
+  retries: 0,
+  workers: 1,                     // Stable for CI
 });
